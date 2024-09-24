@@ -1,0 +1,64 @@
+<!-- 
+    This file includes extra sites for debug
+ -->
+<mujocoinclude>
+    <!-- First finger -->
+    <body name="ffdistal_mocap" mocap="true" >
+        <site name="ffdistal_ref" class="V_Debug" />
+    </body>
+    <body name="ffmiddle_mocap" mocap="true" >
+        <site name="ffmiddle_ref" class="V_Debug" />
+    </body>
+    <body name="ffproximal_mocap" mocap="true" >
+        <site name="ffproximal_ref" class="V_Debug" />
+    </body>
+    <!-- First finger over -->
+
+    <!-- Middle finger -->
+    <body name="mfdistal_mocap" mocap="true" >
+        <site name="mfdistal_ref" class="V_Debug" />
+    </body>
+    <body name="mfmiddle_mocap" mocap="true" >
+        <site name="mfmiddle_ref" class="V_Debug" />
+    </body>
+    <body name="mfproximal_mocap" mocap="true" >
+        <site name="mfproximal_ref" class="V_Debug" />
+    </body>
+    <!-- Middle finger over -->
+
+    <!-- Ring finger -->
+    <body name="rfdistal_mocap" mocap="true" >
+        <site name="rfdistal_ref" class="V_Debug" />
+    </body>
+    <body name="rfmiddle_mocap" mocap="true" >
+        <site name="rfmiddle_ref" class="V_Debug" />
+    </body>
+    <body name="rfproximal_mocap" mocap="true" >
+        <site name="rfproximal_ref" class="V_Debug" />
+    </body>
+    <!-- Ring finger over -->
+
+    <!-- Little finger -->
+    <body name="lfdistal_mocap" mocap="true" >
+        <site name="lfdistal_ref" class="V_Debug" />
+    </body>
+    <body name="lfmiddle_mocap" mocap="true" >
+        <site name="lfmiddle_ref" class="V_Debug" />
+    </body>
+    <body name="lfproximal_mocap" mocap="true" >
+        <site name="lfproximal_ref" class="V_Debug" />
+    </body>
+    <!-- Little finger over -->
+
+    <!-- Thumb -->
+    <body name="thdistal_mocap" mocap="true" >
+        <site name="thdistal_ref" class="V_Debug" />
+    </body>
+    <body name="thmiddle_mocap" mocap="true" >
+        <site name="thmiddle_ref" class="V_Debug" />
+    </body>
+    <body name="thproximal_mocap" mocap="true" >
+        <site name="thproximal_ref" class="V_Debug" />
+    </body>
+    <!-- Thumb over -->
+</mujocoinclude>

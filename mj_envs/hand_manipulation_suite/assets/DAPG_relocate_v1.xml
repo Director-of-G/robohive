@@ -23,6 +23,13 @@ language governing permissions and limitations under the License.
 
 <mujoco model='ADROIT-relocate(v1.5)'>
 
+    <!-- Added manually -->
+    <visual>
+		<!-- <scale framelength="0.03" framewidth="0.0025" contactwidth="0.005" contactheight="0.002" /> -->
+		<scale framelength="3" framewidth="0.25" />
+	</visual>
+    <!-- Added manually -->
+
     <!-- ======= WORLD ======= -->
     <worldbody>
         <light directional='false' diffuse='.7 .7 .7' specular='0.03 0.03 0.03' pos='-1 -1.0 4.0'
@@ -69,7 +76,7 @@ language governing permissions and limitations under the License.
             <geom name="C_forearm1" class="DC_Hand" size="0.05 0.033" pos="0 0 0.29" type="capsule"
                 rgba="0.4 0.5 0.6 0.1" />
             <!-- ======= Adroit ======= -->
-            <include file="DAPG_Adroit.xml" />
+            <include file="DAPG_Adroit_v1.xml" />
         </body>
 
         <!-- ======= DESTINATION ======= -->
@@ -84,8 +91,13 @@ language governing permissions and limitations under the License.
             <joint name="OBJRx" pos="0 0 0" axis="1 0 0" limited="false" damping="0" />
             <joint name="OBJRy" pos="0 0 0" axis="0 1 0" limited="false" damping="0" />
             <joint name="OBJRz" pos="0 0 0" axis="0 0 1" limited="false" damping="0" />
-            <geom name="sphere" size="0.035" condim="4" material="MatWoodB" />
+            <geom name="sphere" size="0.035" condim="4" material="MatWoodB" solref="0.02 1" solimp="0 0.95 0.0001" />
         </body>
+
+        <!-- ======= DEBUG ======= -->
+        <!-- Added manually -->
+        <include file="DAPG_Adroit_debug.xml" />
+        <!-- Added manually -->
     </worldbody>
 
     <actuator>

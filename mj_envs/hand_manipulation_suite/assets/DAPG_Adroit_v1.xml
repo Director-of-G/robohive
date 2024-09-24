@@ -1,0 +1,1752 @@
+<!-- 
+    This file is modified from chain_with_touch.xml from official Adroit assets.
+    Only the kinematics chain from wrist are kept.
+    Here are some modifications, please search 'Modified manually' and 'Added 
+    manually' to discover them. (@TODO: automatic xml generation)
+ -->
+<mujocoinclude>
+    <!-- ======= Wrist ======= -->
+    <!-- Modified manually -->
+    <body name="wrist" pos="0 0 0.396">
+        <!-- Modified manually -->
+        <inertial pos="0.003 0.000 0.016" quat="0.504 0.496 0.495 0.504" mass="0.3" diaginertia="0.001 0.001 0.001" />
+        <joint name="WRJ1" type="hinge" pos="0 0 0" axis="0 1 0" range="-0.524 0.175" damping=".5" armature=".005" user="1123" />
+        <geom class="D_Vizual" name="V_wrist" mesh="wrist" />
+        <geom class="DC_Hand" name="C_wrist" type="capsule" pos="0 0 0" quat=".707 .707 0 0" size=".015 .01" rgba=".4 .5 .6 .1" />
+
+        <!-- ======= Palm ======= -->
+        <body name="palm" pos="0 0 0.034">
+            <inertial pos="0.006 -0.000 0.036" quat="0.716 0.044 0.075 0.693" mass="0.3" diaginertia="0.001 0.001 0.001" />
+            <joint name="WRJ0" type="hinge" pos="0 0 0" axis="1 0 0" range="-0.785 0.611" damping=".5" armature=".005" user="1122" />
+            <geom class="D_Vizual" name="V_palm" mesh="palm" />
+            <geom class="DC_Hand" name="C_palm0" type="box" pos="0.011 0 0.038" size=".032 .0111 .049" rgba=".4 .5 .6 .1" />
+            <geom class="DC_Hand" name="C_palm1" type="box" pos="-.032 0 0.014" size=".011 .0111 .025" rgba=".4 .5 .6 .1" />
+
+            <!-- Added manually -->
+            <site name="S_grasp" type="sphere" rgba="0 0 0 0" size="0.01" pos=".007 -.05 0.07"
+                quat="0.0087 -0.6 -0.0034 -0.81  " />
+            <site class="D_Touch" name="Tch_ffmetacarpal" size="0.009 0.004 0.006"
+                pos="0.033 -.008 .078" />
+            <site class="D_Touch" name="Tch_mfmetacarpal" size="0.009 0.004 0.014"
+                pos="0.011 -.008 .074" />
+            <site class="D_Touch" name="Tch_rfmetacarpal" size="0.009 0.004 0.016"
+                pos="-0.011 -.008 .068" />
+            <site class="D_Touch" name="Tch_thmetacarpal" size="0.008 0.004 0.015"
+                pos="0.006 -.008 .042" euler="0 0.57 0" />
+            <site class="D_Touch" name="Tch_palm" size="0.012 0.004 0.016" pos="-0.017 -.008 .024"
+                euler="0 -1 0" />
+            <!-- Added manually -->
+
+            <!-- ======= First Finger ======= -->
+            <body name="ffknuckle" pos="0.033 0 0.095">
+                <inertial pos="-0.000 0.000 0.000" quat="0.520 0.854 0.006 -0.003" mass="0.008" diaginertia="0.00001 0.00001 0.00001" />
+                <joint name="FFJ3" type="hinge" pos="0 0 0" axis="0 1 0" range="-0.436 0.436" user="1103" />
+                <geom class="D_Vizual" name="V_ffknuckle" mesh="knuckle" />
+                <!--Proximal-->
+                <body name="ffproximal" pos="0 0 0">
+                    <inertial pos="0.000 0.000 0.023" quat="0.707 -0.004 0.004 0.707" mass="0.014" diaginertia="0.00001 0.00001 0.00001" />
+                    <joint name="FFJ2" type="hinge" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1102" />
+                    <geom class="D_Vizual" name="V_ffproximal" mesh="F3" />
+                    <geom class="DC_Hand" name="C_ffproximal" type="capsule" pos="0 0 .0225" size=".01 .0225" contype="1" conaffinity="2" />
+                    <site class="D_Touch" name="Tch_ffproximal" size="0.010 0.006 0.013" pos="0 -.004 .0225" />
+                    <site name="ffproximal_touch" pos="0 0.008 0.022" euler="-1.571 0 0" />
+                    <!--middle-->
+                    <body name="ffmiddle" pos="0 0 0.045">
+                        <inertial pos="-0.000 -0.000 0.011" quat="0.707 0.000 -0.000 0.707" mass="0.012" diaginertia="0.00001 0.00001 0.00001" />
+                        <joint name="FFJ1" type="hinge" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1101" />
+                        <geom class="D_Vizual" name="V_ffmiddle" mesh="F2" />
+                        <geom class="DC_Hand" name="C_ffmiddle" type="capsule" pos="0 0 .0125" size=".00805 .0125" contype="1" conaffinity="2" />
+                        <site class="D_Touch" name="Tch_ffmiddle" size="0.009 0.005 0.013" pos="0 -.004 .0125" />
+                        <site name="ffmiddle_touch" pos="0 0.007 0.0135" euler="-1.571 0 0" />
+                        <!--distal-->
+                        <body name="ffdistal" pos="0 0 0.025">
+                            <inertial pos="0 -0.000 0.015" quat="0.707 -0.003 0.003 0.707" mass="0.010" diaginertia="0.00001 0.00001 0.00001" />
+                            <joint name="FFJ0" type="hinge" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1100" />
+                            <geom class="D_Vizual" name="V_ffdistal" pos="0 0 .001" mesh="F1" />
+                            <!-- <geom class="DC_Hand" name="C_ffdistal" type="capsule" pos="0 0 .012" size=".00705 .012" condim="4" contype="1"
+                                conaffinity="2" /> -->
+                            <site name="S_fftip" pos="0.000 0 0.026" group="3" />
+                            <site class="D_Touch" name="Tch_fftip" size="0.009 0.004 0.013" pos="0 -.004 .018" />
+                            <site name="ffdistal_touch" pos="0 0.0065 0.016" euler="-1.571 0 0" />
+                            <body name="ffdistal_panel_base" pos="0.0 -0.0085 0.016" quat="0.70710678 -0.70710678 0.0 0.0">
+                                <body name="ffdistal_T_r0c0" pos="-0.0045000000000000005 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffdistal_J_r0c0" range="-0.001 0.001" />
+                                    <site name="ffdistal_S_r0c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="ffdistal_T_r0c1" pos="-0.0015000000000000005 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffdistal_J_r0c1" range="-0.001 0.001" />
+                                    <site name="ffdistal_S_r0c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="ffdistal_T_r0c2" pos="0.0014999999999999996 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffdistal_J_r0c2" range="-0.001 0.001" />
+                                    <site name="ffdistal_S_r0c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="ffdistal_T_r0c3" pos="0.0045000000000000005 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffdistal_J_r0c3" range="-0.001 0.001" />
+                                    <site name="ffdistal_S_r0c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="ffdistal_T_r1c0" pos="-0.0045000000000000005 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffdistal_J_r1c0" range="-0.001 0.001" />
+                                    <site name="ffdistal_S_r1c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="ffdistal_T_r1c1" pos="-0.0015000000000000005 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffdistal_J_r1c1" range="-0.001 0.001" />
+                                    <site name="ffdistal_S_r1c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="ffdistal_T_r1c2" pos="0.0014999999999999996 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffdistal_J_r1c2" range="-0.001 0.001" />
+                                    <site name="ffdistal_S_r1c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="ffdistal_T_r1c3" pos="0.0045000000000000005 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffdistal_J_r1c3" range="-0.001 0.001" />
+                                    <site name="ffdistal_S_r1c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="ffdistal_T_r2c0" pos="-0.0045000000000000005 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffdistal_J_r2c0" range="-0.001 0.001" />
+                                    <site name="ffdistal_S_r2c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="ffdistal_T_r2c1" pos="-0.0015000000000000005 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffdistal_J_r2c1" range="-0.001 0.001" />
+                                    <site name="ffdistal_S_r2c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="ffdistal_T_r2c2" pos="0.0014999999999999996 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffdistal_J_r2c2" range="-0.001 0.001" />
+                                    <site name="ffdistal_S_r2c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="ffdistal_T_r2c3" pos="0.0045000000000000005 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffdistal_J_r2c3" range="-0.001 0.001" />
+                                    <site name="ffdistal_S_r2c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="ffdistal_T_r3c0" pos="-0.0045000000000000005 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffdistal_J_r3c0" range="-0.001 0.001" />
+                                    <site name="ffdistal_S_r3c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="ffdistal_T_r3c1" pos="-0.0015000000000000005 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffdistal_J_r3c1" range="-0.001 0.001" />
+                                    <site name="ffdistal_S_r3c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="ffdistal_T_r3c2" pos="0.0014999999999999996 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffdistal_J_r3c2" range="-0.001 0.001" />
+                                    <site name="ffdistal_S_r3c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="ffdistal_T_r3c3" pos="0.0045000000000000005 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffdistal_J_r3c3" range="-0.001 0.001" />
+                                    <site name="ffdistal_S_r3c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                            </body>
+                        </body>
+                        <body name="ffmiddle_panel_base" pos="0.0 -0.010500000000000002 0.0135" quat="0.70710678 -0.70710678 0.0 0.0">
+                            <body name="ffmiddle_T_r0c0" pos="-0.0045000000000000005 -0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffmiddle_J_r0c0" range="-0.001 0.001" />
+                                <site name="ffmiddle_S_r0c0" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="ffmiddle_T_r0c1" pos="-0.0015000000000000005 -0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffmiddle_J_r0c1" range="-0.001 0.001" />
+                                <site name="ffmiddle_S_r0c1" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="ffmiddle_T_r0c2" pos="0.0014999999999999996 -0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffmiddle_J_r0c2" range="-0.001 0.001" />
+                                <site name="ffmiddle_S_r0c2" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="ffmiddle_T_r0c3" pos="0.0045000000000000005 -0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffmiddle_J_r0c3" range="-0.001 0.001" />
+                                <site name="ffmiddle_S_r0c3" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="ffmiddle_T_r1c0" pos="-0.0045000000000000005 -0.0015000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffmiddle_J_r1c0" range="-0.001 0.001" />
+                                <site name="ffmiddle_S_r1c0" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="ffmiddle_T_r1c1" pos="-0.0015000000000000005 -0.0015000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffmiddle_J_r1c1" range="-0.001 0.001" />
+                                <site name="ffmiddle_S_r1c1" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="ffmiddle_T_r1c2" pos="0.0014999999999999996 -0.0015000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffmiddle_J_r1c2" range="-0.001 0.001" />
+                                <site name="ffmiddle_S_r1c2" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="ffmiddle_T_r1c3" pos="0.0045000000000000005 -0.0015000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffmiddle_J_r1c3" range="-0.001 0.001" />
+                                <site name="ffmiddle_S_r1c3" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="ffmiddle_T_r2c0" pos="-0.0045000000000000005 0.0014999999999999996 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffmiddle_J_r2c0" range="-0.001 0.001" />
+                                <site name="ffmiddle_S_r2c0" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="ffmiddle_T_r2c1" pos="-0.0015000000000000005 0.0014999999999999996 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffmiddle_J_r2c1" range="-0.001 0.001" />
+                                <site name="ffmiddle_S_r2c1" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="ffmiddle_T_r2c2" pos="0.0014999999999999996 0.0014999999999999996 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffmiddle_J_r2c2" range="-0.001 0.001" />
+                                <site name="ffmiddle_S_r2c2" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="ffmiddle_T_r2c3" pos="0.0045000000000000005 0.0014999999999999996 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffmiddle_J_r2c3" range="-0.001 0.001" />
+                                <site name="ffmiddle_S_r2c3" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="ffmiddle_T_r3c0" pos="-0.0045000000000000005 0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffmiddle_J_r3c0" range="-0.001 0.001" />
+                                <site name="ffmiddle_S_r3c0" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="ffmiddle_T_r3c1" pos="-0.0015000000000000005 0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffmiddle_J_r3c1" range="-0.001 0.001" />
+                                <site name="ffmiddle_S_r3c1" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="ffmiddle_T_r3c2" pos="0.0014999999999999996 0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffmiddle_J_r3c2" range="-0.001 0.001" />
+                                <site name="ffmiddle_S_r3c2" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="ffmiddle_T_r3c3" pos="0.0045000000000000005 0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffmiddle_J_r3c3" range="-0.001 0.001" />
+                                <site name="ffmiddle_S_r3c3" pos="0 0 0" class="D_Array" />
+                            </body>
+                        </body>
+                    </body>
+                    <body name="ffproximal_panel_base" pos="0.0 -0.010500000000000002 0.022" quat="0.70710678 -0.70710678 0.0 0.0">
+                        <body name="ffproximal_T_r0c0" pos="-0.0045000000000000005 -0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffproximal_J_r0c0" range="-0.001 0.001" />
+                            <site name="ffproximal_S_r0c0" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="ffproximal_T_r0c1" pos="-0.0015000000000000005 -0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffproximal_J_r0c1" range="-0.001 0.001" />
+                            <site name="ffproximal_S_r0c1" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="ffproximal_T_r0c2" pos="0.0014999999999999996 -0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffproximal_J_r0c2" range="-0.001 0.001" />
+                            <site name="ffproximal_S_r0c2" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="ffproximal_T_r0c3" pos="0.0045000000000000005 -0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffproximal_J_r0c3" range="-0.001 0.001" />
+                            <site name="ffproximal_S_r0c3" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="ffproximal_T_r1c0" pos="-0.0045000000000000005 -0.0015000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffproximal_J_r1c0" range="-0.001 0.001" />
+                            <site name="ffproximal_S_r1c0" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="ffproximal_T_r1c1" pos="-0.0015000000000000005 -0.0015000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffproximal_J_r1c1" range="-0.001 0.001" />
+                            <site name="ffproximal_S_r1c1" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="ffproximal_T_r1c2" pos="0.0014999999999999996 -0.0015000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffproximal_J_r1c2" range="-0.001 0.001" />
+                            <site name="ffproximal_S_r1c2" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="ffproximal_T_r1c3" pos="0.0045000000000000005 -0.0015000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffproximal_J_r1c3" range="-0.001 0.001" />
+                            <site name="ffproximal_S_r1c3" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="ffproximal_T_r2c0" pos="-0.0045000000000000005 0.0014999999999999996 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffproximal_J_r2c0" range="-0.001 0.001" />
+                            <site name="ffproximal_S_r2c0" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="ffproximal_T_r2c1" pos="-0.0015000000000000005 0.0014999999999999996 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffproximal_J_r2c1" range="-0.001 0.001" />
+                            <site name="ffproximal_S_r2c1" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="ffproximal_T_r2c2" pos="0.0014999999999999996 0.0014999999999999996 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffproximal_J_r2c2" range="-0.001 0.001" />
+                            <site name="ffproximal_S_r2c2" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="ffproximal_T_r2c3" pos="0.0045000000000000005 0.0014999999999999996 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffproximal_J_r2c3" range="-0.001 0.001" />
+                            <site name="ffproximal_S_r2c3" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="ffproximal_T_r3c0" pos="-0.0045000000000000005 0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffproximal_J_r3c0" range="-0.001 0.001" />
+                            <site name="ffproximal_S_r3c0" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="ffproximal_T_r3c1" pos="-0.0015000000000000005 0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffproximal_J_r3c1" range="-0.001 0.001" />
+                            <site name="ffproximal_S_r3c1" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="ffproximal_T_r3c2" pos="0.0014999999999999996 0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffproximal_J_r3c2" range="-0.001 0.001" />
+                            <site name="ffproximal_S_r3c2" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="ffproximal_T_r3c3" pos="0.0045000000000000005 0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="ffproximal_J_r3c3" range="-0.001 0.001" />
+                            <site name="ffproximal_S_r3c3" pos="0 0 0" class="D_Array" />
+                        </body>
+                    </body>
+                </body>
+            </body> <!--First
+				Finger End-->
+
+
+            <!-- ======= Middle Finger ======= -->
+            <body name="mfknuckle" pos="0.011 0 0.099">
+                <inertial pos="-0.000 0.000 0.000" quat="0.520 0.854 0.006 -0.003" mass="0.008" diaginertia="0.00001 0.00001 0.00001" />
+                <joint name="MFJ3" type="hinge" pos="0 0 0" axis="0 1 0" range="-0.436 0.436" user="1107" />
+                <geom class="D_Vizual" name="V_mfknuckle" mesh="knuckle" />
+                <!--Proximal-->
+                <body name="mfproximal" pos="0 0 0">
+                    <inertial pos="0.000 0.000 0.023" quat="0.707 -0.004 0.004 0.707" mass="0.014" diaginertia="0.00001 0.00001 0.00001" />
+                    <joint name="MFJ2" type="hinge" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1106" />
+                    <geom class="D_Vizual" name="V_mfproximal" mesh="F3" />
+                    <geom class="DC_Hand" name="C_mfproximal" type="capsule" pos="0 0 .0225" size=".01 .0225" contype="1" conaffinity="2" />
+                    <site class="D_Touch" name="Tch_mfproximal" size="0.010 0.006 0.013" pos="0 -.004 .0225" />
+                    <site name="mfproximal_touch" pos="0 0.008 0.022" euler="-1.571 0 0" />
+                    <!--Middle-->
+                    <body name="mfmiddle" pos="0 0 0.045">
+                        <inertial pos="-0.000 -0.000 0.012" quat="0.707 0.000 -0.000 0.707" mass="0.012" diaginertia="0.00001 0.00001 0.00001" />
+                        <joint name="MFJ1" type="hinge" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1105" />
+                        <geom class="D_Vizual" name="V_mfmiddle" mesh="F2" />
+                        <geom class="DC_Hand" name="C_mfmiddle" type="capsule" pos="0 0 .0125" size=".00805 .0125" contype="1" conaffinity="2" />
+                        <site class="D_Touch" name="Tch_mfmiddle" size="0.009 0.005 0.013" pos="0 -.004 .0125" />
+                        <site name="mfmiddle_touch" pos="0 0.007 0.0135" euler="-1.571 0 0" />
+                        <!--Distal-->
+                        <body name="mfdistal" pos="0 0 0.025">
+                            <inertial pos="0 -0.000 0.015" quat="0.707 -0.003 0.003 0.707" mass="0.010" diaginertia="0.00001 0.00001 0.00001" />
+                            <joint name="MFJ0" type="hinge" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1104" />
+                            <geom class="D_Vizual" name="V_mfdistal" mesh="F1" />
+                            <geom class="DC_Hand" name="C_mfdistal" type="capsule" pos="0 0 .012" size=".00705 .012" condim="4" contype="1"
+                                conaffinity="2" />
+                            <site name="S_mftip" pos="0.000 0 0.026" group="3" />
+                            <site class="D_Touch" name="Tch_mftip" size="0.009 0.004 0.013" pos="0 -.004 .018" />
+                            <site name="mfdistal_touch" pos="0 0.0065 0.016" euler="-1.571 0 0" />
+                            <body name="mfdistal_panel_base" pos="0.0 -0.0085 0.016" quat="0.70710678 -0.70710678 0.0 0.0">
+                                <body name="mfdistal_T_r0c0" pos="-0.0045000000000000005 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfdistal_J_r0c0" range="-0.001 0.001" />
+                                    <site name="mfdistal_S_r0c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="mfdistal_T_r0c1" pos="-0.0015000000000000005 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfdistal_J_r0c1" range="-0.001 0.001" />
+                                    <site name="mfdistal_S_r0c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="mfdistal_T_r0c2" pos="0.0014999999999999996 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfdistal_J_r0c2" range="-0.001 0.001" />
+                                    <site name="mfdistal_S_r0c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="mfdistal_T_r0c3" pos="0.0045000000000000005 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfdistal_J_r0c3" range="-0.001 0.001" />
+                                    <site name="mfdistal_S_r0c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="mfdistal_T_r1c0" pos="-0.0045000000000000005 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfdistal_J_r1c0" range="-0.001 0.001" />
+                                    <site name="mfdistal_S_r1c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="mfdistal_T_r1c1" pos="-0.0015000000000000005 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfdistal_J_r1c1" range="-0.001 0.001" />
+                                    <site name="mfdistal_S_r1c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="mfdistal_T_r1c2" pos="0.0014999999999999996 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfdistal_J_r1c2" range="-0.001 0.001" />
+                                    <site name="mfdistal_S_r1c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="mfdistal_T_r1c3" pos="0.0045000000000000005 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfdistal_J_r1c3" range="-0.001 0.001" />
+                                    <site name="mfdistal_S_r1c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="mfdistal_T_r2c0" pos="-0.0045000000000000005 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfdistal_J_r2c0" range="-0.001 0.001" />
+                                    <site name="mfdistal_S_r2c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="mfdistal_T_r2c1" pos="-0.0015000000000000005 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfdistal_J_r2c1" range="-0.001 0.001" />
+                                    <site name="mfdistal_S_r2c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="mfdistal_T_r2c2" pos="0.0014999999999999996 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfdistal_J_r2c2" range="-0.001 0.001" />
+                                    <site name="mfdistal_S_r2c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="mfdistal_T_r2c3" pos="0.0045000000000000005 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfdistal_J_r2c3" range="-0.001 0.001" />
+                                    <site name="mfdistal_S_r2c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="mfdistal_T_r3c0" pos="-0.0045000000000000005 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfdistal_J_r3c0" range="-0.001 0.001" />
+                                    <site name="mfdistal_S_r3c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="mfdistal_T_r3c1" pos="-0.0015000000000000005 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfdistal_J_r3c1" range="-0.001 0.001" />
+                                    <site name="mfdistal_S_r3c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="mfdistal_T_r3c2" pos="0.0014999999999999996 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfdistal_J_r3c2" range="-0.001 0.001" />
+                                    <site name="mfdistal_S_r3c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="mfdistal_T_r3c3" pos="0.0045000000000000005 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfdistal_J_r3c3" range="-0.001 0.001" />
+                                    <site name="mfdistal_S_r3c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                            </body>
+                        </body>
+                        <body name="mfmiddle_panel_base" pos="0.0 -0.010500000000000002 0.0135" quat="0.70710678 -0.70710678 0.0 0.0">
+                            <body name="mfmiddle_T_r0c0" pos="-0.0045000000000000005 -0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfmiddle_J_r0c0" range="-0.001 0.001" />
+                                <site name="mfmiddle_S_r0c0" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="mfmiddle_T_r0c1" pos="-0.0015000000000000005 -0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfmiddle_J_r0c1" range="-0.001 0.001" />
+                                <site name="mfmiddle_S_r0c1" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="mfmiddle_T_r0c2" pos="0.0014999999999999996 -0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfmiddle_J_r0c2" range="-0.001 0.001" />
+                                <site name="mfmiddle_S_r0c2" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="mfmiddle_T_r0c3" pos="0.0045000000000000005 -0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfmiddle_J_r0c3" range="-0.001 0.001" />
+                                <site name="mfmiddle_S_r0c3" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="mfmiddle_T_r1c0" pos="-0.0045000000000000005 -0.0015000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfmiddle_J_r1c0" range="-0.001 0.001" />
+                                <site name="mfmiddle_S_r1c0" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="mfmiddle_T_r1c1" pos="-0.0015000000000000005 -0.0015000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfmiddle_J_r1c1" range="-0.001 0.001" />
+                                <site name="mfmiddle_S_r1c1" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="mfmiddle_T_r1c2" pos="0.0014999999999999996 -0.0015000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfmiddle_J_r1c2" range="-0.001 0.001" />
+                                <site name="mfmiddle_S_r1c2" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="mfmiddle_T_r1c3" pos="0.0045000000000000005 -0.0015000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfmiddle_J_r1c3" range="-0.001 0.001" />
+                                <site name="mfmiddle_S_r1c3" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="mfmiddle_T_r2c0" pos="-0.0045000000000000005 0.0014999999999999996 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfmiddle_J_r2c0" range="-0.001 0.001" />
+                                <site name="mfmiddle_S_r2c0" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="mfmiddle_T_r2c1" pos="-0.0015000000000000005 0.0014999999999999996 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfmiddle_J_r2c1" range="-0.001 0.001" />
+                                <site name="mfmiddle_S_r2c1" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="mfmiddle_T_r2c2" pos="0.0014999999999999996 0.0014999999999999996 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfmiddle_J_r2c2" range="-0.001 0.001" />
+                                <site name="mfmiddle_S_r2c2" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="mfmiddle_T_r2c3" pos="0.0045000000000000005 0.0014999999999999996 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfmiddle_J_r2c3" range="-0.001 0.001" />
+                                <site name="mfmiddle_S_r2c3" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="mfmiddle_T_r3c0" pos="-0.0045000000000000005 0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfmiddle_J_r3c0" range="-0.001 0.001" />
+                                <site name="mfmiddle_S_r3c0" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="mfmiddle_T_r3c1" pos="-0.0015000000000000005 0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfmiddle_J_r3c1" range="-0.001 0.001" />
+                                <site name="mfmiddle_S_r3c1" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="mfmiddle_T_r3c2" pos="0.0014999999999999996 0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfmiddle_J_r3c2" range="-0.001 0.001" />
+                                <site name="mfmiddle_S_r3c2" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="mfmiddle_T_r3c3" pos="0.0045000000000000005 0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfmiddle_J_r3c3" range="-0.001 0.001" />
+                                <site name="mfmiddle_S_r3c3" pos="0 0 0" class="D_Array" />
+                            </body>
+                        </body>
+                    </body>
+                    <body name="mfproximal_panel_base" pos="0.0 -0.010500000000000002 0.022" quat="0.70710678 -0.70710678 0.0 0.0">
+                        <body name="mfproximal_T_r0c0" pos="-0.0045000000000000005 -0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfproximal_J_r0c0" range="-0.001 0.001" />
+                            <site name="mfproximal_S_r0c0" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="mfproximal_T_r0c1" pos="-0.0015000000000000005 -0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfproximal_J_r0c1" range="-0.001 0.001" />
+                            <site name="mfproximal_S_r0c1" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="mfproximal_T_r0c2" pos="0.0014999999999999996 -0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfproximal_J_r0c2" range="-0.001 0.001" />
+                            <site name="mfproximal_S_r0c2" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="mfproximal_T_r0c3" pos="0.0045000000000000005 -0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfproximal_J_r0c3" range="-0.001 0.001" />
+                            <site name="mfproximal_S_r0c3" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="mfproximal_T_r1c0" pos="-0.0045000000000000005 -0.0015000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfproximal_J_r1c0" range="-0.001 0.001" />
+                            <site name="mfproximal_S_r1c0" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="mfproximal_T_r1c1" pos="-0.0015000000000000005 -0.0015000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfproximal_J_r1c1" range="-0.001 0.001" />
+                            <site name="mfproximal_S_r1c1" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="mfproximal_T_r1c2" pos="0.0014999999999999996 -0.0015000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfproximal_J_r1c2" range="-0.001 0.001" />
+                            <site name="mfproximal_S_r1c2" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="mfproximal_T_r1c3" pos="0.0045000000000000005 -0.0015000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfproximal_J_r1c3" range="-0.001 0.001" />
+                            <site name="mfproximal_S_r1c3" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="mfproximal_T_r2c0" pos="-0.0045000000000000005 0.0014999999999999996 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfproximal_J_r2c0" range="-0.001 0.001" />
+                            <site name="mfproximal_S_r2c0" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="mfproximal_T_r2c1" pos="-0.0015000000000000005 0.0014999999999999996 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfproximal_J_r2c1" range="-0.001 0.001" />
+                            <site name="mfproximal_S_r2c1" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="mfproximal_T_r2c2" pos="0.0014999999999999996 0.0014999999999999996 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfproximal_J_r2c2" range="-0.001 0.001" />
+                            <site name="mfproximal_S_r2c2" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="mfproximal_T_r2c3" pos="0.0045000000000000005 0.0014999999999999996 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfproximal_J_r2c3" range="-0.001 0.001" />
+                            <site name="mfproximal_S_r2c3" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="mfproximal_T_r3c0" pos="-0.0045000000000000005 0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfproximal_J_r3c0" range="-0.001 0.001" />
+                            <site name="mfproximal_S_r3c0" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="mfproximal_T_r3c1" pos="-0.0015000000000000005 0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfproximal_J_r3c1" range="-0.001 0.001" />
+                            <site name="mfproximal_S_r3c1" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="mfproximal_T_r3c2" pos="0.0014999999999999996 0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfproximal_J_r3c2" range="-0.001 0.001" />
+                            <site name="mfproximal_S_r3c2" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="mfproximal_T_r3c3" pos="0.0045000000000000005 0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="mfproximal_J_r3c3" range="-0.001 0.001" />
+                            <site name="mfproximal_S_r3c3" pos="0 0 0" class="D_Array" />
+                        </body>
+                    </body>
+                </body>
+            </body> <!--Middle
+				Finger End-->
+
+
+            <!-- ======= Ring Finger ======= -->
+            <body name="rfknuckle" pos="-0.011 0 0.095">
+                <inertial pos="-0.000 0.000 0.000" quat="0.520 0.854 0.006 -0.003" mass="0.008" diaginertia="0.00001 0.00001 0.00001" />
+                <joint name="RFJ3" type="hinge" pos="0 0 0" axis="0 1 0" range="-0.436 0.436" user="1111" />
+                <geom class="D_Vizual" name="V_rfknuckle" mesh="knuckle" />
+                <!--Proximal-->
+                <body name="rfproximal" pos="0 0 0">
+                    <inertial pos="0.000 0.000 0.023" quat="0.707 -0.004 0.004 0.707" mass="0.014" diaginertia="0.00001 0.00001 0.00001" />
+                    <joint name="RFJ2" type="hinge" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1110" />
+                    <geom class="D_Vizual" name="V_rfproximal" mesh="F3" />
+                    <geom class="DC_Hand" name="C_rfproximal" type="capsule" pos="0 0 .0225" size=".01 .0225" contype="1" conaffinity="2" />
+                    <site class="D_Touch" name="Tch_rfproximal" size="0.010 0.006 0.013" pos="0 -.004 .0225" />
+                    <site name="rfproximal_touch" pos="0 0.008 0.022" euler="-1.571 0 0" />
+                    <!--Middle-->
+                    <body name="rfmiddle" pos="0 0 0.045">
+                        <inertial pos="-0.000 -0.000 0.012" quat="0.707 0.000 -0.000 0.707" mass="0.012" diaginertia="0.00001 0.00001 0.00001" />
+                        <joint name="RFJ1" type="hinge" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1109" />
+                        <geom class="D_Vizual" name="V_rfmiddle" mesh="F2" />
+                        <geom class="DC_Hand" name="C_rfmiddle" type="capsule" pos="0 0 .0125" size=".00805 .0125" contype="1" conaffinity="2" />
+                        <site class="D_Touch" name="Tch_rfmiddle" size="0.009 0.005 0.013" pos="0 -.004 .0125" />
+                        <site name="rfmiddle_touch" pos="0 0.007 0.0135" euler="-1.571 0 0" />
+                        <!--Distal-->
+                        <body name="rfdistal" pos="0 0 0.025">
+                            <inertial pos="0 -0.000 0.015" quat="0.707 -0.003 0.003 0.707" mass="0.010" diaginertia="0.00001 0.00001 0.00001" />
+                            <joint name="RFJ0" type="hinge" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1108" />
+                            <geom class="D_Vizual" name="V_rfdistal" mesh="F1" pos="0 0 .001" />
+                            <geom class="DC_Hand" name="C_rfdistal" type="capsule" pos="0 0 .012" size=".00705 .012" condim="4" contype="1"
+                                conaffinity="2" />
+                            <site name="S_rftip" pos="0.000 0 0.026" group="3" />
+                            <site class="D_Touch" name="Tch_rftip" size="0.009 0.004 0.013" pos="0 -.004 .018" />
+                            <site name="rfdistal_touch" pos="0 0.0065 0.016" euler="-1.571 0 0" />
+                            <body name="rfdistal_panel_base" pos="0.0 -0.0085 0.016" quat="0.70710678 -0.70710678 0.0 0.0">
+                                <body name="rfdistal_T_r0c0" pos="-0.0045000000000000005 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfdistal_J_r0c0" range="-0.001 0.001" />
+                                    <site name="rfdistal_S_r0c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="rfdistal_T_r0c1" pos="-0.0015000000000000005 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfdistal_J_r0c1" range="-0.001 0.001" />
+                                    <site name="rfdistal_S_r0c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="rfdistal_T_r0c2" pos="0.0014999999999999996 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfdistal_J_r0c2" range="-0.001 0.001" />
+                                    <site name="rfdistal_S_r0c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="rfdistal_T_r0c3" pos="0.0045000000000000005 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfdistal_J_r0c3" range="-0.001 0.001" />
+                                    <site name="rfdistal_S_r0c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="rfdistal_T_r1c0" pos="-0.0045000000000000005 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfdistal_J_r1c0" range="-0.001 0.001" />
+                                    <site name="rfdistal_S_r1c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="rfdistal_T_r1c1" pos="-0.0015000000000000005 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfdistal_J_r1c1" range="-0.001 0.001" />
+                                    <site name="rfdistal_S_r1c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="rfdistal_T_r1c2" pos="0.0014999999999999996 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfdistal_J_r1c2" range="-0.001 0.001" />
+                                    <site name="rfdistal_S_r1c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="rfdistal_T_r1c3" pos="0.0045000000000000005 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfdistal_J_r1c3" range="-0.001 0.001" />
+                                    <site name="rfdistal_S_r1c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="rfdistal_T_r2c0" pos="-0.0045000000000000005 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfdistal_J_r2c0" range="-0.001 0.001" />
+                                    <site name="rfdistal_S_r2c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="rfdistal_T_r2c1" pos="-0.0015000000000000005 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfdistal_J_r2c1" range="-0.001 0.001" />
+                                    <site name="rfdistal_S_r2c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="rfdistal_T_r2c2" pos="0.0014999999999999996 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfdistal_J_r2c2" range="-0.001 0.001" />
+                                    <site name="rfdistal_S_r2c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="rfdistal_T_r2c3" pos="0.0045000000000000005 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfdistal_J_r2c3" range="-0.001 0.001" />
+                                    <site name="rfdistal_S_r2c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="rfdistal_T_r3c0" pos="-0.0045000000000000005 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfdistal_J_r3c0" range="-0.001 0.001" />
+                                    <site name="rfdistal_S_r3c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="rfdistal_T_r3c1" pos="-0.0015000000000000005 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfdistal_J_r3c1" range="-0.001 0.001" />
+                                    <site name="rfdistal_S_r3c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="rfdistal_T_r3c2" pos="0.0014999999999999996 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfdistal_J_r3c2" range="-0.001 0.001" />
+                                    <site name="rfdistal_S_r3c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="rfdistal_T_r3c3" pos="0.0045000000000000005 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfdistal_J_r3c3" range="-0.001 0.001" />
+                                    <site name="rfdistal_S_r3c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                            </body>
+                        </body>
+                        <body name="rfmiddle_panel_base" pos="0.0 -0.010500000000000002 0.0135" quat="0.70710678 -0.70710678 0.0 0.0">
+                            <body name="rfmiddle_T_r0c0" pos="-0.0045000000000000005 -0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfmiddle_J_r0c0" range="-0.001 0.001" />
+                                <site name="rfmiddle_S_r0c0" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="rfmiddle_T_r0c1" pos="-0.0015000000000000005 -0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfmiddle_J_r0c1" range="-0.001 0.001" />
+                                <site name="rfmiddle_S_r0c1" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="rfmiddle_T_r0c2" pos="0.0014999999999999996 -0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfmiddle_J_r0c2" range="-0.001 0.001" />
+                                <site name="rfmiddle_S_r0c2" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="rfmiddle_T_r0c3" pos="0.0045000000000000005 -0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfmiddle_J_r0c3" range="-0.001 0.001" />
+                                <site name="rfmiddle_S_r0c3" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="rfmiddle_T_r1c0" pos="-0.0045000000000000005 -0.0015000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfmiddle_J_r1c0" range="-0.001 0.001" />
+                                <site name="rfmiddle_S_r1c0" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="rfmiddle_T_r1c1" pos="-0.0015000000000000005 -0.0015000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfmiddle_J_r1c1" range="-0.001 0.001" />
+                                <site name="rfmiddle_S_r1c1" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="rfmiddle_T_r1c2" pos="0.0014999999999999996 -0.0015000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfmiddle_J_r1c2" range="-0.001 0.001" />
+                                <site name="rfmiddle_S_r1c2" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="rfmiddle_T_r1c3" pos="0.0045000000000000005 -0.0015000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfmiddle_J_r1c3" range="-0.001 0.001" />
+                                <site name="rfmiddle_S_r1c3" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="rfmiddle_T_r2c0" pos="-0.0045000000000000005 0.0014999999999999996 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfmiddle_J_r2c0" range="-0.001 0.001" />
+                                <site name="rfmiddle_S_r2c0" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="rfmiddle_T_r2c1" pos="-0.0015000000000000005 0.0014999999999999996 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfmiddle_J_r2c1" range="-0.001 0.001" />
+                                <site name="rfmiddle_S_r2c1" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="rfmiddle_T_r2c2" pos="0.0014999999999999996 0.0014999999999999996 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfmiddle_J_r2c2" range="-0.001 0.001" />
+                                <site name="rfmiddle_S_r2c2" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="rfmiddle_T_r2c3" pos="0.0045000000000000005 0.0014999999999999996 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfmiddle_J_r2c3" range="-0.001 0.001" />
+                                <site name="rfmiddle_S_r2c3" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="rfmiddle_T_r3c0" pos="-0.0045000000000000005 0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfmiddle_J_r3c0" range="-0.001 0.001" />
+                                <site name="rfmiddle_S_r3c0" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="rfmiddle_T_r3c1" pos="-0.0015000000000000005 0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfmiddle_J_r3c1" range="-0.001 0.001" />
+                                <site name="rfmiddle_S_r3c1" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="rfmiddle_T_r3c2" pos="0.0014999999999999996 0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfmiddle_J_r3c2" range="-0.001 0.001" />
+                                <site name="rfmiddle_S_r3c2" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="rfmiddle_T_r3c3" pos="0.0045000000000000005 0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfmiddle_J_r3c3" range="-0.001 0.001" />
+                                <site name="rfmiddle_S_r3c3" pos="0 0 0" class="D_Array" />
+                            </body>
+                        </body>
+                    </body>
+                    <body name="rfproximal_panel_base" pos="0.0 -0.010500000000000002 0.022" quat="0.70710678 -0.70710678 0.0 0.0">
+                        <body name="rfproximal_T_r0c0" pos="-0.0045000000000000005 -0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfproximal_J_r0c0" range="-0.001 0.001" />
+                            <site name="rfproximal_S_r0c0" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="rfproximal_T_r0c1" pos="-0.0015000000000000005 -0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfproximal_J_r0c1" range="-0.001 0.001" />
+                            <site name="rfproximal_S_r0c1" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="rfproximal_T_r0c2" pos="0.0014999999999999996 -0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfproximal_J_r0c2" range="-0.001 0.001" />
+                            <site name="rfproximal_S_r0c2" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="rfproximal_T_r0c3" pos="0.0045000000000000005 -0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfproximal_J_r0c3" range="-0.001 0.001" />
+                            <site name="rfproximal_S_r0c3" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="rfproximal_T_r1c0" pos="-0.0045000000000000005 -0.0015000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfproximal_J_r1c0" range="-0.001 0.001" />
+                            <site name="rfproximal_S_r1c0" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="rfproximal_T_r1c1" pos="-0.0015000000000000005 -0.0015000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfproximal_J_r1c1" range="-0.001 0.001" />
+                            <site name="rfproximal_S_r1c1" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="rfproximal_T_r1c2" pos="0.0014999999999999996 -0.0015000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfproximal_J_r1c2" range="-0.001 0.001" />
+                            <site name="rfproximal_S_r1c2" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="rfproximal_T_r1c3" pos="0.0045000000000000005 -0.0015000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfproximal_J_r1c3" range="-0.001 0.001" />
+                            <site name="rfproximal_S_r1c3" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="rfproximal_T_r2c0" pos="-0.0045000000000000005 0.0014999999999999996 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfproximal_J_r2c0" range="-0.001 0.001" />
+                            <site name="rfproximal_S_r2c0" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="rfproximal_T_r2c1" pos="-0.0015000000000000005 0.0014999999999999996 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfproximal_J_r2c1" range="-0.001 0.001" />
+                            <site name="rfproximal_S_r2c1" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="rfproximal_T_r2c2" pos="0.0014999999999999996 0.0014999999999999996 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfproximal_J_r2c2" range="-0.001 0.001" />
+                            <site name="rfproximal_S_r2c2" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="rfproximal_T_r2c3" pos="0.0045000000000000005 0.0014999999999999996 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfproximal_J_r2c3" range="-0.001 0.001" />
+                            <site name="rfproximal_S_r2c3" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="rfproximal_T_r3c0" pos="-0.0045000000000000005 0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfproximal_J_r3c0" range="-0.001 0.001" />
+                            <site name="rfproximal_S_r3c0" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="rfproximal_T_r3c1" pos="-0.0015000000000000005 0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfproximal_J_r3c1" range="-0.001 0.001" />
+                            <site name="rfproximal_S_r3c1" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="rfproximal_T_r3c2" pos="0.0014999999999999996 0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfproximal_J_r3c2" range="-0.001 0.001" />
+                            <site name="rfproximal_S_r3c2" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="rfproximal_T_r3c3" pos="0.0045000000000000005 0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="rfproximal_J_r3c3" range="-0.001 0.001" />
+                            <site name="rfproximal_S_r3c3" pos="0 0 0" class="D_Array" />
+                        </body>
+                    </body>
+                </body>
+            </body> <!--Ring
+				Finger End-->
+
+
+            <!-- ======= Little Finger ======= -->
+            <body name="lfmetacarpal" pos="-0.017 0 0.044">
+                <inertial pos="-0.014 0.001 0.014" quat="0.709 -0.092 -0.063 0.696" mass="0.075" diaginertia="0.00001 0.00001 0.00001" />
+                <joint name="LFJ4" type="hinge" pos="0 0 0" axis="0.571 0 0.821" range="0 0.698" user="1116" />
+                <!--<joint
+					name="LFJ4" type="hinge" pos="0 0 0" axis="0.571 0 0.821" range="0 0.0698"
+					user="1116"/>-->
+                <geom class="D_Vizual" name="V_lfmetacarpal" pos="-0.016 0.000 -0.023" mesh="lfmetacarpal" />
+                <geom class="DC_Hand" name="C_lfmetacarpal" type="box" pos="-.0165 0 0.01" size=".0095 .0111 .025" rgba=".4 .5 .6 .2" />
+                <site class="D_Touch" name="Tch_lfmetacarpal" pos="-.0165 0 0.015" size=".0095 .0111 .02" />
+                <!--Knuckle-->
+                <body name="lfknuckle" pos="-0.017 0 0.044">
+                    <inertial pos="-0.000 0.000 0.000" quat="0.520 0.854 0.006 -0.003" mass="0.008" diaginertia="0.00001 0.00001 0.00001" />
+                    <joint name="LFJ3" type="hinge" pos="0 0 0" axis="0 1 0" range="-0.436 0.436" user="1115" />
+                    <geom class="D_Vizual" name="V_lfknuckle" mesh="knuckle" />
+                    <!--Proximal-->
+                    <body name="lfproximal" pos="0 0 0">
+                        <inertial pos="0.000 0.000 0.023" quat="0.707 -0.004 0.004 0.707" mass="0.014" diaginertia="0.00001 0.00001 0.00001" />
+                        <joint name="LFJ2" type="hinge" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1114" />
+                        <geom class="D_Vizual" name="V_lfproximal" mesh="F3" />
+                        <geom class="DC_Hand" name="C_lfproximal" type="capsule" pos="0 0 .0225" size=".01 .0225" contype="1" conaffinity="2" />
+                        <site class="D_Touch" name="Tch_lfproximal" size="0.010 0.006 0.013" pos="0 -.004 .0225" />
+                        <site name="lfproximal_touch" pos="0 0.008 0.022" euler="-1.571 0 0" />
+                        <!--Middle-->
+                        <body name="lfmiddle" pos="0 0 0.045">
+                            <inertial pos="-0.000 -0.000 0.012" quat="0.707 0.000 -0.000 0.707" mass="0.012" diaginertia="0.00001 0.00001 0.00001" />
+                            <joint name="LFJ1" type="hinge" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1113" />
+                            <geom class="D_Vizual" name="V_lfmiddle" mesh="F2" />
+                            <geom class="DC_Hand" name="C_lfmiddle" type="capsule" pos="0 0 .0125" size=".00805 .0125" contype="1" conaffinity="2" />
+                            <site class="D_Touch" name="Tch_lfmiddle" size="0.009 0.005 0.013" pos="0 -.004 .0125" />
+                            <site name="lfmiddle_touch" pos="0 0.007 0.0135" euler="-1.571 0 0" />
+                            <!--Distal-->
+                            <body name="lfdistal" pos="0 0 0.025">
+                                <inertial pos="0 -0.000 0.015" quat="0.707 -0.003 0.003 0.707" mass="0.010" diaginertia="0.00001 0.00001 0.00001" />
+                                <joint name="LFJ0" type="hinge" pos="0 0 0" axis="1 0 0" range="0 1.571" user="1112" />
+                                <geom class="D_Vizual" name="V_lfdistal" mesh="F1" pos="0 0 .001" />
+                                <geom class="DC_Hand" name="C_lfdistal" type="capsule" pos="0 0 .012" size=".00705 .012" condim="4" contype="1"
+                                    conaffinity="2" />
+                                <site name="S_lftip" pos="0.000 0 0.026" group="3" />
+                                <site class="D_Touch" name="Tch_lftip" size="0.009 0.004 0.013" pos="0 -.004 .018" />
+                                <site name="lfdistal_touch" pos="0 0.0065 0.016" euler="-1.571 0 0" />
+                                <body name="lfdistal_panel_base" pos="0.0 -0.0085 0.016" quat="0.70710678 -0.70710678 0.0 0.0">
+                                    <body name="lfdistal_T_r0c0" pos="-0.0045000000000000005 -0.0045000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfdistal_J_r0c0"
+                                            range="-0.001 0.001" />
+                                        <site name="lfdistal_S_r0c0" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="lfdistal_T_r0c1" pos="-0.0015000000000000005 -0.0045000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfdistal_J_r0c1"
+                                            range="-0.001 0.001" />
+                                        <site name="lfdistal_S_r0c1" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="lfdistal_T_r0c2" pos="0.0014999999999999996 -0.0045000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfdistal_J_r0c2"
+                                            range="-0.001 0.001" />
+                                        <site name="lfdistal_S_r0c2" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="lfdistal_T_r0c3" pos="0.0045000000000000005 -0.0045000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfdistal_J_r0c3"
+                                            range="-0.001 0.001" />
+                                        <site name="lfdistal_S_r0c3" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="lfdistal_T_r1c0" pos="-0.0045000000000000005 -0.0015000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfdistal_J_r1c0"
+                                            range="-0.001 0.001" />
+                                        <site name="lfdistal_S_r1c0" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="lfdistal_T_r1c1" pos="-0.0015000000000000005 -0.0015000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfdistal_J_r1c1"
+                                            range="-0.001 0.001" />
+                                        <site name="lfdistal_S_r1c1" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="lfdistal_T_r1c2" pos="0.0014999999999999996 -0.0015000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfdistal_J_r1c2"
+                                            range="-0.001 0.001" />
+                                        <site name="lfdistal_S_r1c2" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="lfdistal_T_r1c3" pos="0.0045000000000000005 -0.0015000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfdistal_J_r1c3"
+                                            range="-0.001 0.001" />
+                                        <site name="lfdistal_S_r1c3" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="lfdistal_T_r2c0" pos="-0.0045000000000000005 0.0014999999999999996 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfdistal_J_r2c0"
+                                            range="-0.001 0.001" />
+                                        <site name="lfdistal_S_r2c0" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="lfdistal_T_r2c1" pos="-0.0015000000000000005 0.0014999999999999996 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfdistal_J_r2c1"
+                                            range="-0.001 0.001" />
+                                        <site name="lfdistal_S_r2c1" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="lfdistal_T_r2c2" pos="0.0014999999999999996 0.0014999999999999996 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfdistal_J_r2c2"
+                                            range="-0.001 0.001" />
+                                        <site name="lfdistal_S_r2c2" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="lfdistal_T_r2c3" pos="0.0045000000000000005 0.0014999999999999996 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfdistal_J_r2c3"
+                                            range="-0.001 0.001" />
+                                        <site name="lfdistal_S_r2c3" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="lfdistal_T_r3c0" pos="-0.0045000000000000005 0.0045000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfdistal_J_r3c0"
+                                            range="-0.001 0.001" />
+                                        <site name="lfdistal_S_r3c0" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="lfdistal_T_r3c1" pos="-0.0015000000000000005 0.0045000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfdistal_J_r3c1"
+                                            range="-0.001 0.001" />
+                                        <site name="lfdistal_S_r3c1" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="lfdistal_T_r3c2" pos="0.0014999999999999996 0.0045000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfdistal_J_r3c2"
+                                            range="-0.001 0.001" />
+                                        <site name="lfdistal_S_r3c2" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="lfdistal_T_r3c3" pos="0.0045000000000000005 0.0045000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfdistal_J_r3c3"
+                                            range="-0.001 0.001" />
+                                        <site name="lfdistal_S_r3c3" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                </body>
+                            </body>
+                            <body name="lfmiddle_panel_base" pos="0.0 -0.010500000000000002 0.0135" quat="0.70710678 -0.70710678 0.0 0.0">
+                                <body name="lfmiddle_T_r0c0" pos="-0.0045000000000000005 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfmiddle_J_r0c0" range="-0.001 0.001" />
+                                    <site name="lfmiddle_S_r0c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="lfmiddle_T_r0c1" pos="-0.0015000000000000005 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfmiddle_J_r0c1" range="-0.001 0.001" />
+                                    <site name="lfmiddle_S_r0c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="lfmiddle_T_r0c2" pos="0.0014999999999999996 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfmiddle_J_r0c2" range="-0.001 0.001" />
+                                    <site name="lfmiddle_S_r0c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="lfmiddle_T_r0c3" pos="0.0045000000000000005 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfmiddle_J_r0c3" range="-0.001 0.001" />
+                                    <site name="lfmiddle_S_r0c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="lfmiddle_T_r1c0" pos="-0.0045000000000000005 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfmiddle_J_r1c0" range="-0.001 0.001" />
+                                    <site name="lfmiddle_S_r1c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="lfmiddle_T_r1c1" pos="-0.0015000000000000005 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfmiddle_J_r1c1" range="-0.001 0.001" />
+                                    <site name="lfmiddle_S_r1c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="lfmiddle_T_r1c2" pos="0.0014999999999999996 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfmiddle_J_r1c2" range="-0.001 0.001" />
+                                    <site name="lfmiddle_S_r1c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="lfmiddle_T_r1c3" pos="0.0045000000000000005 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfmiddle_J_r1c3" range="-0.001 0.001" />
+                                    <site name="lfmiddle_S_r1c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="lfmiddle_T_r2c0" pos="-0.0045000000000000005 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfmiddle_J_r2c0" range="-0.001 0.001" />
+                                    <site name="lfmiddle_S_r2c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="lfmiddle_T_r2c1" pos="-0.0015000000000000005 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfmiddle_J_r2c1" range="-0.001 0.001" />
+                                    <site name="lfmiddle_S_r2c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="lfmiddle_T_r2c2" pos="0.0014999999999999996 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfmiddle_J_r2c2" range="-0.001 0.001" />
+                                    <site name="lfmiddle_S_r2c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="lfmiddle_T_r2c3" pos="0.0045000000000000005 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfmiddle_J_r2c3" range="-0.001 0.001" />
+                                    <site name="lfmiddle_S_r2c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="lfmiddle_T_r3c0" pos="-0.0045000000000000005 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfmiddle_J_r3c0" range="-0.001 0.001" />
+                                    <site name="lfmiddle_S_r3c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="lfmiddle_T_r3c1" pos="-0.0015000000000000005 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfmiddle_J_r3c1" range="-0.001 0.001" />
+                                    <site name="lfmiddle_S_r3c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="lfmiddle_T_r3c2" pos="0.0014999999999999996 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfmiddle_J_r3c2" range="-0.001 0.001" />
+                                    <site name="lfmiddle_S_r3c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="lfmiddle_T_r3c3" pos="0.0045000000000000005 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfmiddle_J_r3c3" range="-0.001 0.001" />
+                                    <site name="lfmiddle_S_r3c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                            </body>
+                        </body>
+                        <body name="lfproximal_panel_base" pos="0.0 -0.010500000000000002 0.022" quat="0.70710678 -0.70710678 0.0 0.0">
+                            <body name="lfproximal_T_r0c0" pos="-0.0045000000000000005 -0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfproximal_J_r0c0" range="-0.001 0.001" />
+                                <site name="lfproximal_S_r0c0" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="lfproximal_T_r0c1" pos="-0.0015000000000000005 -0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfproximal_J_r0c1" range="-0.001 0.001" />
+                                <site name="lfproximal_S_r0c1" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="lfproximal_T_r0c2" pos="0.0014999999999999996 -0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfproximal_J_r0c2" range="-0.001 0.001" />
+                                <site name="lfproximal_S_r0c2" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="lfproximal_T_r0c3" pos="0.0045000000000000005 -0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfproximal_J_r0c3" range="-0.001 0.001" />
+                                <site name="lfproximal_S_r0c3" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="lfproximal_T_r1c0" pos="-0.0045000000000000005 -0.0015000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfproximal_J_r1c0" range="-0.001 0.001" />
+                                <site name="lfproximal_S_r1c0" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="lfproximal_T_r1c1" pos="-0.0015000000000000005 -0.0015000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfproximal_J_r1c1" range="-0.001 0.001" />
+                                <site name="lfproximal_S_r1c1" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="lfproximal_T_r1c2" pos="0.0014999999999999996 -0.0015000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfproximal_J_r1c2" range="-0.001 0.001" />
+                                <site name="lfproximal_S_r1c2" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="lfproximal_T_r1c3" pos="0.0045000000000000005 -0.0015000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfproximal_J_r1c3" range="-0.001 0.001" />
+                                <site name="lfproximal_S_r1c3" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="lfproximal_T_r2c0" pos="-0.0045000000000000005 0.0014999999999999996 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfproximal_J_r2c0" range="-0.001 0.001" />
+                                <site name="lfproximal_S_r2c0" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="lfproximal_T_r2c1" pos="-0.0015000000000000005 0.0014999999999999996 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfproximal_J_r2c1" range="-0.001 0.001" />
+                                <site name="lfproximal_S_r2c1" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="lfproximal_T_r2c2" pos="0.0014999999999999996 0.0014999999999999996 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfproximal_J_r2c2" range="-0.001 0.001" />
+                                <site name="lfproximal_S_r2c2" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="lfproximal_T_r2c3" pos="0.0045000000000000005 0.0014999999999999996 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfproximal_J_r2c3" range="-0.001 0.001" />
+                                <site name="lfproximal_S_r2c3" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="lfproximal_T_r3c0" pos="-0.0045000000000000005 0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfproximal_J_r3c0" range="-0.001 0.001" />
+                                <site name="lfproximal_S_r3c0" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="lfproximal_T_r3c1" pos="-0.0015000000000000005 0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfproximal_J_r3c1" range="-0.001 0.001" />
+                                <site name="lfproximal_S_r3c1" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="lfproximal_T_r3c2" pos="0.0014999999999999996 0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfproximal_J_r3c2" range="-0.001 0.001" />
+                                <site name="lfproximal_S_r3c2" pos="0 0 0" class="D_Array" />
+                            </body>
+                            <body name="lfproximal_T_r3c3" pos="0.0045000000000000005 0.0045000000000000005 0.0">
+                                <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="lfproximal_J_r3c3" range="-0.001 0.001" />
+                                <site name="lfproximal_S_r3c3" pos="0 0 0" class="D_Array" />
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body> <!--Little
+				Finger End-->
+
+
+            <!-- ======= Thumb Finger ======= -->
+            <body name="thbase" pos="0.034 -0.009 0.029" axisangle="0  1 0  0.785">
+                <inertial pos="0 0 0" mass="0.010" diaginertia="0.00001 0.00001 0.00001" />
+                <joint name="THJ4" type="hinge" pos="0 0 0" axis="0 0 -1" range="-1.047 1.047" user="1121" />
+                <geom class="D_Vizual" name="V_thbase" type="box" group="1" pos="0 0 0" size="0.001 0.001 0.001" />
+                <!--Proximal-->
+                <body name="thproximal" pos="0 0 0">
+                    <inertial pos="-0.000 -0.000 0.017" quat="0.982 -0.000 0.001 0.191" mass="0.016" diaginertia="0.00001 0.00001 0.00001" />
+                    <joint name="THJ3" type="hinge" pos="0 0 0" axis="1 0 0" range="0 1.309" user="1120" />
+                    <geom class="D_Vizual" name="V_thproximal" mesh="TH3_z" />
+                    <geom class="DC_Hand" name="C_thproximal" type="capsule" pos="0 0 .019" size=".013 .019" rgba=".4 .5 .6 .1" contype="1"
+                        conaffinity="2" />
+                    <site class="D_Touch" name="Tch_thproximal" size="0.005 0.011 0.016" pos="-.007 0 0.019" />
+                    <site name="thproximal_touch" pos="0.011 0 0.018" euler="0 1.571 0" />
+                    <!--Hub-->
+                    <body name="thhub" pos="0 0 0.038">
+                        <inertial pos="0 0 0" mass="0.002" diaginertia="0.00001 0.00001 0.00001" />
+                        <joint name="THJ2" type="hinge" pos="0 0 0" axis="1 0 0" range="-0.262 0.262" user="1119" />
+                        <geom class="D_Vizual" name="V_thhub" type="box" group="1" pos="0 0 0" size="0.001 0.001 0.001" />
+                        <!--Middle-->
+                        <body name="thmiddle" pos="0 0 0">
+                            <inertial pos="0.000 -0.000 0.016" quat="1.000 -0.001 -0.007 0.003" mass="0.016" diaginertia="0.00001 0.00001 0.00001" />
+                            <joint name="THJ1" type="hinge" pos="0 0 0" axis="0 1 0" range="-0.524 0.524" user="1118" />
+                            <geom class="D_Vizual" name="V_thmiddle" mesh="TH2_z" />
+                            <geom class="DC_Hand" name="C_thmiddle" type="capsule" pos="0 0 .016" size=".011 .016" contype="1" conaffinity="2" />
+                            <site class="D_Touch" name="Tch_thmiddle" size="0.005 0.011 0.016" pos="-.006 0 0.016" />
+                            <site name="thmiddle_touch" pos="0.009 0 0.018" euler="0 1.571 0" />
+                            <!--Distal-->
+                            <body name="thdistal" pos="0 0 0.032">
+                                <inertial pos="0.000 -0.000 0.016" quat="0.999 -0.005 -0.047 0.005" mass="0.016" diaginertia="0.00001 0.00001 0.00001" />
+                                <joint name="THJ0" type="hinge" pos="0 0 0" axis="0 1 0" range="-1.571 0" user="1117" />
+                                <geom class="D_Vizual" name="V_thdistal" mesh="TH1_z" />
+                                <geom class="DC_Hand" name="C_thdistal" type="capsule" pos="0 0 .013" size=".00918 .013" condim="4" contype="1"
+                                    conaffinity="2" />
+                                <site name="S_thtip" pos="0.000 0 0.0275" group="3" />
+                                <site class="D_Touch" name="Tch_thtip" size="0.005 0.011 0.016" pos="-.005 0 0.02" />
+                                <site name="thdistal_touch" pos="0.009 0 0.018" euler="0 1.571 0" />
+                                <body name="thdistal_panel_base" pos="-0.011000000000000001 0.0 0.018" quat="-0.5 0.5 -0.5 0.5">
+                                    <body name="thdistal_T_r0c0" pos="-0.0045000000000000005 -0.0045000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thdistal_J_r0c0"
+                                            range="-0.001 0.001" />
+                                        <site name="thdistal_S_r0c0" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="thdistal_T_r0c1" pos="-0.0015000000000000005 -0.0045000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thdistal_J_r0c1"
+                                            range="-0.001 0.001" />
+                                        <site name="thdistal_S_r0c1" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="thdistal_T_r0c2" pos="0.0014999999999999996 -0.0045000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thdistal_J_r0c2"
+                                            range="-0.001 0.001" />
+                                        <site name="thdistal_S_r0c2" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="thdistal_T_r0c3" pos="0.0045000000000000005 -0.0045000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thdistal_J_r0c3"
+                                            range="-0.001 0.001" />
+                                        <site name="thdistal_S_r0c3" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="thdistal_T_r1c0" pos="-0.0045000000000000005 -0.0015000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thdistal_J_r1c0"
+                                            range="-0.001 0.001" />
+                                        <site name="thdistal_S_r1c0" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="thdistal_T_r1c1" pos="-0.0015000000000000005 -0.0015000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thdistal_J_r1c1"
+                                            range="-0.001 0.001" />
+                                        <site name="thdistal_S_r1c1" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="thdistal_T_r1c2" pos="0.0014999999999999996 -0.0015000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thdistal_J_r1c2"
+                                            range="-0.001 0.001" />
+                                        <site name="thdistal_S_r1c2" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="thdistal_T_r1c3" pos="0.0045000000000000005 -0.0015000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thdistal_J_r1c3"
+                                            range="-0.001 0.001" />
+                                        <site name="thdistal_S_r1c3" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="thdistal_T_r2c0" pos="-0.0045000000000000005 0.0014999999999999996 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thdistal_J_r2c0"
+                                            range="-0.001 0.001" />
+                                        <site name="thdistal_S_r2c0" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="thdistal_T_r2c1" pos="-0.0015000000000000005 0.0014999999999999996 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thdistal_J_r2c1"
+                                            range="-0.001 0.001" />
+                                        <site name="thdistal_S_r2c1" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="thdistal_T_r2c2" pos="0.0014999999999999996 0.0014999999999999996 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thdistal_J_r2c2"
+                                            range="-0.001 0.001" />
+                                        <site name="thdistal_S_r2c2" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="thdistal_T_r2c3" pos="0.0045000000000000005 0.0014999999999999996 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thdistal_J_r2c3"
+                                            range="-0.001 0.001" />
+                                        <site name="thdistal_S_r2c3" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="thdistal_T_r3c0" pos="-0.0045000000000000005 0.0045000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thdistal_J_r3c0"
+                                            range="-0.001 0.001" />
+                                        <site name="thdistal_S_r3c0" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="thdistal_T_r3c1" pos="-0.0015000000000000005 0.0045000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thdistal_J_r3c1"
+                                            range="-0.001 0.001" />
+                                        <site name="thdistal_S_r3c1" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="thdistal_T_r3c2" pos="0.0014999999999999996 0.0045000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thdistal_J_r3c2"
+                                            range="-0.001 0.001" />
+                                        <site name="thdistal_S_r3c2" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                    <body name="thdistal_T_r3c3" pos="0.0045000000000000005 0.0045000000000000005 0.0">
+                                        <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                        <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                        <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thdistal_J_r3c3"
+                                            range="-0.001 0.001" />
+                                        <site name="thdistal_S_r3c3" pos="0 0 0" class="D_Array" />
+                                    </body>
+                                </body>
+                            </body>
+                            <body name="thmiddle_panel_base" pos="-0.0105 0.0 0.018" quat="-0.5 0.5 -0.5 0.5">
+                                <body name="thmiddle_T_r0c0" pos="-0.0045000000000000005 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thmiddle_J_r0c0" range="-0.001 0.001" />
+                                    <site name="thmiddle_S_r0c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="thmiddle_T_r0c1" pos="-0.0015000000000000005 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thmiddle_J_r0c1" range="-0.001 0.001" />
+                                    <site name="thmiddle_S_r0c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="thmiddle_T_r0c2" pos="0.0014999999999999996 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thmiddle_J_r0c2" range="-0.001 0.001" />
+                                    <site name="thmiddle_S_r0c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="thmiddle_T_r0c3" pos="0.0045000000000000005 -0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thmiddle_J_r0c3" range="-0.001 0.001" />
+                                    <site name="thmiddle_S_r0c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="thmiddle_T_r1c0" pos="-0.0045000000000000005 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thmiddle_J_r1c0" range="-0.001 0.001" />
+                                    <site name="thmiddle_S_r1c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="thmiddle_T_r1c1" pos="-0.0015000000000000005 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thmiddle_J_r1c1" range="-0.001 0.001" />
+                                    <site name="thmiddle_S_r1c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="thmiddle_T_r1c2" pos="0.0014999999999999996 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thmiddle_J_r1c2" range="-0.001 0.001" />
+                                    <site name="thmiddle_S_r1c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="thmiddle_T_r1c3" pos="0.0045000000000000005 -0.0015000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thmiddle_J_r1c3" range="-0.001 0.001" />
+                                    <site name="thmiddle_S_r1c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="thmiddle_T_r2c0" pos="-0.0045000000000000005 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thmiddle_J_r2c0" range="-0.001 0.001" />
+                                    <site name="thmiddle_S_r2c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="thmiddle_T_r2c1" pos="-0.0015000000000000005 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thmiddle_J_r2c1" range="-0.001 0.001" />
+                                    <site name="thmiddle_S_r2c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="thmiddle_T_r2c2" pos="0.0014999999999999996 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thmiddle_J_r2c2" range="-0.001 0.001" />
+                                    <site name="thmiddle_S_r2c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="thmiddle_T_r2c3" pos="0.0045000000000000005 0.0014999999999999996 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thmiddle_J_r2c3" range="-0.001 0.001" />
+                                    <site name="thmiddle_S_r2c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="thmiddle_T_r3c0" pos="-0.0045000000000000005 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thmiddle_J_r3c0" range="-0.001 0.001" />
+                                    <site name="thmiddle_S_r3c0" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="thmiddle_T_r3c1" pos="-0.0015000000000000005 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thmiddle_J_r3c1" range="-0.001 0.001" />
+                                    <site name="thmiddle_S_r3c1" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="thmiddle_T_r3c2" pos="0.0014999999999999996 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thmiddle_J_r3c2" range="-0.001 0.001" />
+                                    <site name="thmiddle_S_r3c2" pos="0 0 0" class="D_Array" />
+                                </body>
+                                <body name="thmiddle_T_r3c3" pos="0.0045000000000000005 0.0045000000000000005 0.0">
+                                    <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                                    <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                                    <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thmiddle_J_r3c3" range="-0.001 0.001" />
+                                    <site name="thmiddle_S_r3c3" pos="0 0 0" class="D_Array" />
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                    <body name="thproximal_panel_base" pos="-0.0125 0.0 0.018" quat="-0.5 0.5 -0.5 0.5">
+                        <body name="thproximal_T_r0c0" pos="-0.0045000000000000005 -0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thproximal_J_r0c0" range="-0.001 0.001" />
+                            <site name="thproximal_S_r0c0" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="thproximal_T_r0c1" pos="-0.0015000000000000005 -0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thproximal_J_r0c1" range="-0.001 0.001" />
+                            <site name="thproximal_S_r0c1" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="thproximal_T_r0c2" pos="0.0014999999999999996 -0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thproximal_J_r0c2" range="-0.001 0.001" />
+                            <site name="thproximal_S_r0c2" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="thproximal_T_r0c3" pos="0.0045000000000000005 -0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thproximal_J_r0c3" range="-0.001 0.001" />
+                            <site name="thproximal_S_r0c3" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="thproximal_T_r1c0" pos="-0.0045000000000000005 -0.0015000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thproximal_J_r1c0" range="-0.001 0.001" />
+                            <site name="thproximal_S_r1c0" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="thproximal_T_r1c1" pos="-0.0015000000000000005 -0.0015000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thproximal_J_r1c1" range="-0.001 0.001" />
+                            <site name="thproximal_S_r1c1" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="thproximal_T_r1c2" pos="0.0014999999999999996 -0.0015000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thproximal_J_r1c2" range="-0.001 0.001" />
+                            <site name="thproximal_S_r1c2" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="thproximal_T_r1c3" pos="0.0045000000000000005 -0.0015000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thproximal_J_r1c3" range="-0.001 0.001" />
+                            <site name="thproximal_S_r1c3" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="thproximal_T_r2c0" pos="-0.0045000000000000005 0.0014999999999999996 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thproximal_J_r2c0" range="-0.001 0.001" />
+                            <site name="thproximal_S_r2c0" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="thproximal_T_r2c1" pos="-0.0015000000000000005 0.0014999999999999996 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thproximal_J_r2c1" range="-0.001 0.001" />
+                            <site name="thproximal_S_r2c1" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="thproximal_T_r2c2" pos="0.0014999999999999996 0.0014999999999999996 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thproximal_J_r2c2" range="-0.001 0.001" />
+                            <site name="thproximal_S_r2c2" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="thproximal_T_r2c3" pos="0.0045000000000000005 0.0014999999999999996 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thproximal_J_r2c3" range="-0.001 0.001" />
+                            <site name="thproximal_S_r2c3" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="thproximal_T_r3c0" pos="-0.0045000000000000005 0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thproximal_J_r3c0" range="-0.001 0.001" />
+                            <site name="thproximal_S_r3c0" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="thproximal_T_r3c1" pos="-0.0015000000000000005 0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thproximal_J_r3c1" range="-0.001 0.001" />
+                            <site name="thproximal_S_r3c1" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="thproximal_T_r3c2" pos="0.0014999999999999996 0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thproximal_J_r3c2" range="-0.001 0.001" />
+                            <site name="thproximal_S_r3c2" pos="0 0 0" class="D_Array" />
+                        </body>
+                        <body name="thproximal_T_r3c3" pos="0.0045000000000000005 0.0045000000000000005 0.0">
+                            <geom type="sphere" size="0.001" rgba="0.2 0.2 0.7 0.5" contype="1" conaffinity="2" class="DC_Taxel" />
+                            <inertial mass="1e-05" diaginertia="1e-06 1e-06 1e-06" pos="0 0 0" />
+                            <joint type="slide" stiffness="1000.0" damping="0.0001" axis="0 0 1" name="thproximal_J_r3c3" range="-0.001 0.001" />
+                            <site name="thproximal_S_r3c3" pos="0 0 0" class="D_Array" />
+                        </body>
+                    </body>
+                </body>
+            </body> <!--Thumb
+				Finger End-->
+        </body> <!--Palm
+			Ends-->
+    </body> <!--Wrist
+            Ends-->
+</mujocoinclude>

@@ -32,3 +32,23 @@ register(
     max_episode_steps=200,
 )
 from mj_envs.hand_manipulation_suite.relocate_v0 import RelocateEnvV0
+register(
+    id='relocate-v1',
+    entry_point='mj_envs.hand_manipulation_suite:RelocateEnvV1',
+    max_episode_steps=200,
+)
+from mj_envs.hand_manipulation_suite.relocate_v1 import RelocateEnvV1
+
+# Make desired contact
+from mj_envs.hand_manipulation_suite.contact_v0 import ContactEnvV0
+register(
+    id='contact-v0',
+    entry_point='mj_envs.hand_manipulation_suite:ContactEnvV0',
+    max_episode_steps=200,
+)
+from mj_envs.hand_manipulation_suite.contact_v1 import ContactEnvV1
+register(
+    id='contact-v1',
+    entry_point='mj_envs.hand_manipulation_suite:ContactEnvV1',
+    max_episode_steps=200,
+)
